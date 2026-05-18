@@ -15,12 +15,6 @@ clicking = False
 def log_stats():
     now = time.time()
     elapsed = now - start_time
-
-    # TODO is this needed
-    if elapsed > 3600:  # Cap session at 1 hour cuz im worried about overflow
-                click_count = 0
-                start_time = time.time()
-
     cps = click_count / elapsed if elapsed > 0 else 0
 
     print(f"[Stats] Time ran: {elapsed:.1f}s | "
@@ -38,6 +32,7 @@ while True:
                 data = json.load(f)
             session_name=random.choice(data["grandma_names"])
 
+            # TODO Clean this up
             print(f"""                  
 Starting new session!
 SESSION: {session_name}
@@ -64,8 +59,6 @@ SESSION: {session_name}
 
         # Log stats every 20 seconds
         if now - last_log_time >= 20:
-            elapsed = now - start_time
-
             log_stats()
             last_log_time = now
 
