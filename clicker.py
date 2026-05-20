@@ -5,11 +5,16 @@ import json
 import random
 
 # Replace these with your cookie coordinates
+# TODO Have these be congfiurable? click cookie to start type of thing
 x = 2241 
 y = 404
+
+# Config Vars
+log_rate = 20
+sicko_mode = False
 pydirectinput.PAUSE = 0
 
-print("Press F6 to toggle auto-clicking. Press F7 to quit.")
+print("Press F6 to toggle auto-clicking. Press F7 to quit. Press F10 to toggle sicko mode, which could get weird.")
 clicking = False
 
 def log_stats():
@@ -20,7 +25,7 @@ def log_stats():
     print(f"[Stats] Time ran: {elapsed:.1f}s | "
         f"Total Clicks: {click_count} | Avg. CPS: {cps:.2f}")
 
-while True:    
+while True:
     # Toggle clicking
     if keyboard.is_pressed("f6"):
         clicking = not clicking
@@ -50,6 +55,10 @@ SESSION: {session_name}
         print("Exiting.")
         log_stats()
         break
+    
+    # Toggle sicko mode 
+    if keyboard.is_pressed("f10"): 
+        sicko_mode= not sicko_mode
 
     if clicking:
         # Click and Increment
@@ -57,9 +66,10 @@ SESSION: {session_name}
         click_count += 1
         now = time.time()
 
-        # Log stats every 20 seconds
-        if now - last_log_time >= 20:
+        # Log Stats
+        if now - last_log_time >= log_rate:
             log_stats()
             last_log_time = now
 
-        time.sleep(0.0001)
+        if not sicko_mode:
+            time.sleep(0.0001)
