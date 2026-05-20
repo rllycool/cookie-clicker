@@ -58,7 +58,7 @@ SESSION: {session_name}
     
     # Toggle sicko mode 
     if keyboard.is_pressed("f10"): 
-        print(f"Speed:{sicko_mode}")
+        print(f"Speed:{not sicko_mode}")
         sicko_mode= not sicko_mode
         time.sleep(0.3)  # debounce
 
