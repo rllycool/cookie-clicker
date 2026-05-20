@@ -10,7 +10,7 @@ x = 2241
 y = 404
 
 # Config Vars
-log_rate = 20
+log_rate = 10
 sicko_mode = False
 pydirectinput.PAUSE = 0
 
@@ -58,7 +58,9 @@ SESSION: {session_name}
     
     # Toggle sicko mode 
     if keyboard.is_pressed("f10"): 
+        print(f"Speed:{sicko_mode}")
         sicko_mode= not sicko_mode
+        time.sleep(0.3)  # debounce
 
     if clicking:
         # Click and Increment
