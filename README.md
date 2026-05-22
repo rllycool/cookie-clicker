@@ -8,7 +8,7 @@ Auto clicker for [Cookie Clicker on Steam](https://store.steampowered.com/app/14
 
 ![alt text](image-1.png)
 
-`clicker.py`: Using located coordinates, clicks that shi.
+`clicker.py`: Using located coordinates, clicks your cookie.
 
 
 # Cookie Clicker Guide
