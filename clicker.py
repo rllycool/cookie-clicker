@@ -1,5 +1,3 @@
-import pydirectinput
-import pyautogui
 import time
 import keyboard
 import mouse
@@ -7,16 +5,19 @@ from mouse import ButtonEvent
 import json
 import random
 
+import pyautogui
+import pydirectinput
+pydirectinput.PAUSE = 0
+
 print("Click your cookie to start!")
 print("Press F6 to toggle auto-clicking. Press F7 to quit. Press F10 to toggle sicko mode, which could get weird.")
 
-# Config Vars
+# TODO Configurable Vars
 log_rate = 10
-sicko_mode = False
-pydirectinput.PAUSE = 0
 
 # Initialize Vars
 clicking = False
+sicko_mode = False
 start_time = 0
 click_count = 0
 last_log_time = 0
