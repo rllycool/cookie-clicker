@@ -1,15 +1,7 @@
 # About
 Auto clicker for [Cookie Clicker on Steam](https://store.steampowered.com/app/1454400/Cookie_Clicker/), using OS level redirects via Python.
 
-![alt text](image.png)
-
-# How to use
-`locate.py`: Finds (x,y) coordinates for clicker script.
-
-![alt text](image-1.png)
-
 `clicker.py`: Using located coordinates, clicks your cookie.
-
 
 # Cookie Clicker Guide
 ### Ascension

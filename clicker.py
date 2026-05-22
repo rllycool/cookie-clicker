@@ -1,21 +1,29 @@
 import pydirectinput
+import pyautogui
 import time
 import keyboard
+import mouse
+from mouse import ButtonEvent
 import json
 import random
 
-# Replace these with your cookie coordinates
-# TODO Have these be congfiurable? click cookie to start type of thing
-x = 2241 
-y = 404
+print("Click your cookie to start!")
+print("Press F6 to toggle auto-clicking. Press F7 to quit. Press F10 to toggle sicko mode, which could get weird.")
 
 # Config Vars
 log_rate = 10
 sicko_mode = False
 pydirectinput.PAUSE = 0
 
-print("Press F6 to toggle auto-clicking. Press F7 to quit. Press F10 to toggle sicko mode, which could get weird.")
+# Initialize Vars
 clicking = False
+start_time = 0
+click_count = 0
+last_log_time = 0
+
+# Cookie Coords
+positions = []
+x,y = None,None
 
 def log_stats():
     now = time.time()
@@ -24,10 +32,25 @@ def log_stats():
 
     print(f"[Stats] Time ran: {elapsed:.1f}s | "
         f"Total Clicks: {click_count} | Avg. CPS: {cps:.2f}")
+    
+def on_click(event):
+    global x, y
+    if not isinstance(event, ButtonEvent):
+        return
+    if event.event_type == "down" and x is None:
+        # TODO using two different python GUI libs 
+        x, y = pyautogui.position()
+        print(f"Cookie position set to: {x}, {y}")
+        mouse.unhook(on_click)  # stop listening once captured
+mouse.hook(on_click)
 
 while True:
     # Toggle clicking
     if keyboard.is_pressed("f6"):
+        #TODO lazy error handle
+        if x is None:
+            print("WARNING - Please set cookie coords before starting a session!")
+        
         clicking = not clicking
         print("Clicking:", clicking)
 
@@ -37,11 +60,8 @@ while True:
                 data = json.load(f)
             session_name=random.choice(data["grandma_names"])
 
-            # TODO Clean this up
-            print(f"""                  
-Starting new session!
-SESSION: {session_name}
---------------------""")
+            # TODO Clean this up | xd it got worse
+            print(f"Starting new session!\nSESSION: {session_name}\n--------------------")
             start_time = time.time()
             last_log_time = time.time()
         else:
@@ -62,8 +82,8 @@ SESSION: {session_name}
         sicko_mode= not sicko_mode
         time.sleep(0.3)  # debounce
 
+    # Click and Increment
     if clicking:
-        # Click and Increment
         pydirectinput.click(x, y)
         click_count += 1
         now = time.time()
