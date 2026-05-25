@@ -51,7 +51,7 @@ while True:
         #TODO lazy error handle
         if x is None:
             print("WARNING - Please set cookie coords before starting a session!")
-        
+            break
         clicking = not clicking
         print("Clicking:", clicking)
 
